@@ -59,3 +59,12 @@ def get_students():
         student_list.append(student_dict)
     return student_list
     
+def remove_by_id(id):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        DELETE FROM students WHERE id = ?""", (id,))
+
+    connection.commit()
+    connection.close()

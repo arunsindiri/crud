@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from database import create_table, adding_student, get_students, student_by_id
+from database import create_table, adding_student, get_students, remove_by_id
 
 app = Flask(__name__)
 
@@ -32,6 +32,12 @@ def show_students():
     students = get_students()
     
     return jsonify(students)
+
+@app.route("/remove_student/<int:id>", methods=["DELETE"])
+def remove_student(id):
+    remove_by_id(id)
+
+    return jsonify({"message": f"Student with ID {id} removed successfully"})
 
 if __name__ == "__main__":
     app.run(debug=True, port=8000)
