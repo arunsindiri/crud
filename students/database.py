@@ -31,6 +31,20 @@ def adding_student(name, age, course):
     connection.commit()
     connection.close()
 
+def student_by_id(id):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        SELECT * FROM students WHERE id = ?""", (id,))
+
+    student = cursor.fetchone()
+    connection.close()
+
+    if student:
+        return dict(student)
+    return None
+    
 def get_students():
     connection = get_connection()
     cursor = connection.cursor()

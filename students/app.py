@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from database import create_table, adding_student, get_students
+from database import create_table, adding_student, get_students, student_by_id
 
 app = Flask(__name__)
 
@@ -21,9 +21,16 @@ def add_student():
 
     return jsonify({"message":"Student added sucessfully"})  
 
+@app.route("/get_student/<int:id>", methods=["GET"])
+def get_student_by_id(id):
+    student = student_by_id(id)
+
+    return jsonify(student)
+
 @app.route("/show_students", methods=["GET"])
 def show_students():
     students = get_students()
+    
     return jsonify(students)
 
 if __name__ == "__main__":
