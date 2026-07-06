@@ -30,4 +30,18 @@ def adding_student(name, age, course):
 
     connection.commit()
     connection.close()
+
+def get_students():
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute("""SELECT * FROM students""")
+    students = cursor.fetchall()
+    connection.close()
+
+    student_list = []
+    for student in students:
+        student_dict = dict(student)
+        student_list.append(student_dict)
+    return student_list
     
