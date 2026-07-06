@@ -19,3 +19,15 @@ def create_table():
 
     connection.commit()
     connection.close()
+
+def adding_student(name, age, course):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        INSERT INTO students(name, age, course)
+        VALUES (?, ?, ?)""", (name, age, course))
+
+    connection.commit()
+    connection.close()
+    
